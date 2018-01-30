@@ -254,14 +254,18 @@
 	// Instagram
 	var instagram = function() {
 		var token = '13848843.7c9c5db.25e2077d4e0c45b7b7900025042828d0',
-		hashtag='',
+		clientId = '7c9c5db18289410d9b8f259a8e6e9164',
+		resolution = 'standard_resolution',
+		user_id = '13848843',
+		hashtag = 'wedding',
 		num_photos = 4;
 		$.ajax({
 			url: 'https://api.instagram.com/v1/tags/' + hashtag + '/media/recent',
 			dataType: 'jsonp',
 			type: 'GET',
-			data: {access_token: token, count: num_photos},
+			data: {accessToken: token, userId: user_id, resolution: resolution, count: num_photos},
 			success: function(data){
+				console.log('success');
 				console.log(data);
 				for(x in data.data){
 					$('.instagram-gallery')
@@ -270,10 +274,22 @@
 				}
 			},
 			error: function(data) {
+				console.log('error');
 				console.log(data);
 			}
 		});
 	}
+
+	var instaFeed = new Instafeed({
+        get: 'user',
+        clientId: '7c9c5db18289410d9b8f259a8e6e9164',
+        userId: '13848843',
+        resolution: 'low_resolution',
+        sortBy: 'random',
+        //limit: 10,
+		accessToken: '13848843.7c9c5db.25e2077d4e0c45b7b7900025042828d0',
+		template: '<div class="col-md-3 col-sm-6 instagram-gallery"><div class="gallery"><a class="gallery-img image-popup" href="{{link}}"><img src="{{image}}" /></a></div></div>'
+    });
 
 	// Document on load.
 	$(function(){
@@ -289,6 +305,7 @@
 		//inlineSVG();
 		bgVideo();
 		//instagram();
+		instaFeed.run();
 	});
 
 
