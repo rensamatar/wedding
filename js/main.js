@@ -1,12 +1,13 @@
 ;(function () {
+	
 	'use strict';
 
 	// iPad and iPod detection	
-	var isiPad = function(){
+	var isiPad = function() {
 		return (navigator.platform.indexOf("iPad") != -1);
 	};
 
-	var isiPhone = function(){
+	var isiPhone = function() {
 		return (
 			(navigator.platform.indexOf("iPhone") != -1) || 
 			(navigator.platform.indexOf("iPod") != -1)
@@ -35,13 +36,13 @@
 			slideshowSpeed: 5000,
 			directionNav: true,
 			start: function(){
-				setTimeout(function(){
+				setTimeout(function() {
 					$('.slider-text').removeClass('animated fadeInUp');
 					$('.flex-active-slide').find('.slider-text').addClass('animated fadeInUp');
 				}, 500);
 			},
-			before: function(){
-				setTimeout(function(){
+			before: function() {
+				setTimeout(function() {
 					$('.slider-text').removeClass('animated fadeInUp');
 					$('.flex-active-slide').find('.slider-text').addClass('animated fadeInUp');
 				}, 500);
@@ -49,20 +50,19 @@
 		});
 	};
 
-
 	// animate-box
 	var contentWayPoint = function() {
 		$('.animate-box').waypoint( function( direction ) {
 			if( direction === 'down' && !$(this).hasClass('animated') ) {
 				$(this.element).addClass('fadeInUp animated');
 			}
-		} , { offset: '75%' } );
+		}, { offset: '75%' });
 	};
 
 
 	// Burger Menu
 	var burgerMenu = function() {
-		$('body').on('click', '.js-qbootstrap-nav-toggle', function(event){
+		$('body').on('click', '.js-qbootstrap-nav-toggle', function(event) {
 			if ( $('#navbar').is(':visible') ) {
 				$(this).removeClass('active');	
 			} else {
@@ -132,7 +132,7 @@
 	// Window Scroll
 	var windowScroll = function() {
 		var lastScrollTop = 0;
-		$(window).scroll(function(event){
+		$(window).scroll(function(event) {
 			var header = $('#qbootstrap-header'),
 			scrlTop = $(this).scrollTop();
 			if ( scrlTop > 500 && scrlTop <= 2000 ) {
@@ -148,8 +148,6 @@
 			
 		});
 	};
-
-
 
 	// Animations
 	var contentWayPoint = function() {
@@ -178,7 +176,7 @@
 				}, 50);
 			}
 
-		} , { offset: '85%' } );
+		} , { offset: '85%' });
 	};
 
 
@@ -209,7 +207,6 @@
 	        $img.replaceWith($svg);
 
 	    }, 'xml');
-
 		});
 	};
 	
@@ -233,10 +230,6 @@
 		var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
 		// Display the result in an element with id="demo"
-		// document.getElementById("demo").innerHTML = days + "Days " + hours + "Hours "
-		// + minutes + "Minutes " + seconds + "Seconds ";
-
-		// Display the result in an element with id="demo"
 		document.getElementById("days").innerHTML = days +" <small>days</small>";
 		document.getElementById("hours").innerHTML = hours + " <small>hours</small> ";
 		document.getElementById("minutes").innerHTML = minutes + " <small>minutes</small> ";
@@ -245,67 +238,25 @@
 		// If the count down is finished, write some text 
 		if (distance < 0) {
 			clearInterval(x);
-			document.getElementById("demo").innerHTML = "The Wedding Ceremony is Over";
+			document.getElementById("demo").innerHTML = "The Wedding ceremony is over";
 		}
 	}, 1000);	
 
+	// BG Video
 	var bgVideo = function() { $('.player').mb_YTPlayer(); };
 
-	// Instagram
-	var instagram = function() {
-		var token = '13848843.7c9c5db.25e2077d4e0c45b7b7900025042828d0',
-		clientId = '7c9c5db18289410d9b8f259a8e6e9164',
-		resolution = 'standard_resolution',
-		user_id = '13848843',
-		hashtag = 'wedding',
-		num_photos = 4;
-		$.ajax({
-			url: 'https://api.instagram.com/v1/tags/' + hashtag + '/media/recent',
-			dataType: 'jsonp',
-			type: 'GET',
-			data: {accessToken: token, userId: user_id, resolution: resolution, count: num_photos},
-			success: function(data){
-				console.log('success');
-				console.log(data);
-				for(x in data.data){
-					$('.instagram-gallery')
-					.append('<div class="gallery animate-box"><a class="gallery-img image-popup image-popup" href="' + data.data[x].images.standard_resolution.url +' "><img src="'+data.data[x].images.standard_resolution.url+'"></a></div>');
-					//.append('<li><img src="'+data.data[x].images.standard_resolution.url+'"></li>');  
-				}
-			},
-			error: function(data) {
-				console.log('error');
-				console.log(data);
-			}
-		});
-	}
-
-	var instaFeed = new Instafeed({
-        get: 'user',
-        clientId: '7c9c5db18289410d9b8f259a8e6e9164',
-        userId: '13848843',
-        resolution: 'low_resolution',
-        sortBy: 'random',
-        //limit: 10,
-		accessToken: '13848843.7c9c5db.25e2077d4e0c45b7b7900025042828d0',
-		template: '<div class="col-md-3 col-sm-6 instagram-gallery"><div class="gallery"><a class="gallery-img image-popup" href="{{link}}"><img src="{{image}}" /></a></div></div>'
-    });
-
 	// Document on load.
-	$(function(){
-
+	$(function() {
 		burgerMenu();
 		testimonialCarousel();
 		sliderMain();
 		clickMenu();
+		//windowScroll();
 		parallax();
-		// windowScroll();
 		navigationSection();
 		contentWayPoint();
 		//inlineSVG();
 		bgVideo();
-		//instagram();
-		instaFeed.run();
 	});
 
 
